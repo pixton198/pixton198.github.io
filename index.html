@@ -3,16 +3,197 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brand Name Generator</title>
+    <title>Tax Invoice - BEHERA GRAPHICS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .invoice-box {
+            max-width: 800px;
+            margin: auto;
+            padding: 30px;
+            border: 1px solid #eee;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+            font-size: 16px;
+            line-height: 24px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #000;
+        }
+        .header p {
+            margin: 2px 0;
+            font-size: 14px;
+        }
+        .details-section {
+            width: 100%;
+            margin-bottom: 30px;
+        }
+        .details-section td {
+            padding: 5px 0;
+            vertical-align: top;
+        }
+        .details-section .buyer-info {
+            width: 60%;
+        }
+        .details-section .invoice-info {
+            width: 40%;
+            text-align: left;
+        }
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .items-table th, .items-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: right;
+        }
+        .items-table th {
+            background-color: #f2f2f2;
+            text-align: center;
+        }
+        .items-table .description {
+            text-align: left;
+        }
+        .items-table tfoot td {
+            font-weight: bold;
+        }
+        .amount-words {
+            margin-bottom: 30px;
+        }
+        .amount-words span {
+            font-weight: bold;
+        }
+        .footer-section {
+            width: 100%;
+        }
+        .footer-section td {
+            vertical-align: top;
+            padding-top: 20px;
+        }
+        .terms {
+            width: 60%;
+        }
+        .signature {
+            width: 40%;
+            text-align: center;
+            padding-top: 20px;
+        }
+        .signature p {
+            margin-top: 50px;
+            border-top: 1px solid #333;
+            display: inline-block;
+            padding-top: 5px;
+        }
+    </style>
 </head>
 <body>
-    <py-script>
-        print('"Welcome to the Band name generator"\n')
-city_name = input("What's the name of the city you grew up in?\n")
-your_home_name = input("What's your group in your home town ?\n")
-print("Your Band name could be " + city_name + "_" + your_home_name)
 
+<div class="invoice-box">
+    <div class="header">
+        <h1>TAX / RETAIL INVOICE</h1>
+        <hr>
+        <h2>BEHERA GRAPHICS</h2>
+        <p>Office: FF-26, Indradhanu Market, Nayapalli, Bhubaneswar</p>
+        <p>Email: beheragraphics@gmail.com | Phone: 9861669665</p>
+        <p><strong>GSTIN: 21APUPB9655D1ZU</strong></p>
+    </div>
 
-    </py-script>
+    <table class="details-section">
+        <tr>
+            <td class="buyer-info">
+                <strong>Buyer:</strong><br>
+                To, THE PROJECT DIRECTOR, OSACS<br>
+                Nayapalli, Bhubaneswar
+            </td>
+            <td class="invoice-info">
+                <strong>Serial No:</strong> 476<br>
+                <strong>Date:</strong> 24/06/2025
+            </td>
+        </tr>
+    </table>
+
+    <table class="items-table">
+        <thead>
+            <tr>
+                <th>Sl No.</th>
+                <th class="description">Description</th>
+                <th>HSN/SAC</th>
+                <th>Quantity</th>
+                <th>Sqft</th>
+                <th>Rate Per Sqft/Unit</th>
+                <th>Amount</th>
+                <th>GST%</th>
+                <th>CGST @ 9%</th>
+                <th>SGST @ 9%</th>
+                <th>Total Amount (Rs.)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="text-align: center;">1</td>
+                <td class="description">Flex Print - 8x10</td>
+                <td></td>
+                <td style="text-align: center;">1</td>
+                <td>80</td>
+                <td>32.00</td>
+                <td>2560.00</td>
+                <td style="text-align: center;">18%</td>
+                <td>230.40</td>
+                <td>230.40</td>
+                <td>3020.80</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="9" style="text-align: right;">Sub Total:</td>
+                <td>2560.00</td>
+            </tr>
+            <tr>
+                <td colspan="9" style="text-align: right;">CGST @ 9%:</td>
+                <td>230.40</td>
+            </tr>
+             <tr>
+                <td colspan="9" style="text-align: right;">SGST @ 9%:</td>
+                <td>230.40</td>
+            </tr>
+             <tr>
+                <td colspan="9" style="text-align: right;">GRAND TOTAL:</td>
+                <td>3020.80</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="amount-words">
+        <strong>Amount in Words:</strong> Rupees Three Thousand Twenty and Paisa Eighty Only
+    </div>
+
+    <table class="footer-section">
+        <tr>
+            <td class="terms">
+                <strong>Terms & Conditions:</strong>
+                <ol style="padding-left: 20px; margin-top: 5px;">
+                    <li>Goods once delivered are not returnable.</li>
+                    <li>All disputes are subjects to Bhubaneswar Jurisdiction only.</li>
+                </ol>
+            </td>
+            <table class="signature">
+                <p><b>For Behera Graphics</b></p>
+                <p><b>Authorised Signature</b></p>
+            </table>
+        </tr>
+    </table>
+</div>
+
 </body>
 </html>
