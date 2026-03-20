@@ -10,210 +10,231 @@
             size: A4;
             margin: 0;
         }
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f5;
+        * {
+            box-sizing: border-box;
             -webkit-print-color-adjust: exact;
         }
-
-        /* Container for A4 Dimensions */
-        .invoice-box {
-            width: 210mm;
-            min-height: 297mm;
-            padding: 15mm;
-            margin: 10mm auto;
-            background: white;
-            border: 1px solid #ddd;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
         }
 
+        /* The Main Container - Full A4 */
+        .page-container {
+            width: 210mm;
+            height: 297mm;
+            margin: auto;
+            background: white;
+            padding: 12mm;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #000; /* Outer border of the page */
+        }
+
+        /* Header Styles */
         .header {
             text-align: center;
             border-bottom: 2px solid #000;
             padding-bottom: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 0;
         }
         .header h1 {
             margin: 0;
-            font-size: 20px;
-            letter-spacing: 2px;
-            color: #555;
+            font-size: 18px;
+            text-decoration: underline;
         }
         .header h2 {
             margin: 5px 0;
-            font-size: 32px;
+            font-size: 28px;
             color: #000;
+            font-weight: bold;
         }
         .header p {
             margin: 2px 0;
-            font-size: 14px;
+            font-size: 13px;
         }
 
-        .details-section {
+        /* Info Section */
+        .info-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 20px;
+            border-left: 1px solid #000;
+            border-right: 1px solid #000;
+            border-bottom: 1px solid #000;
         }
-        .details-section td {
+        .info-table td {
             width: 50%;
             padding: 10px;
-            border: 1px solid #000;
             vertical-align: top;
+            font-size: 14px;
+            border-right: 1px solid #000;
+        }
+        .info-table td:last-child {
+            border-right: none;
         }
 
+        /* Table Section - This grows to fill space */
+        .main-table-container {
+            flex-grow: 1; /* Pushes everything below to the bottom */
+            border-left: 1px solid #000;
+            border-right: 1px solid #000;
+        }
         .items-table {
             width: 100%;
             border-collapse: collapse;
-            flex-grow: 1; /* Pushes footer to bottom */
-        }
-        .items-table th, .items-table td {
-            border: 1px solid #000;
-            padding: 8px;
-            font-size: 13px;
         }
         .items-table th {
             background-color: #f2f2f2;
+            border-bottom: 1px solid #000;
+            border-right: 1px solid #000;
+            padding: 8px 4px;
+            font-size: 11px;
             text-transform: uppercase;
         }
-        .items-table .text-right { text-align: right; }
-        .items-table .text-center { text-align: center; }
+        .items-table td {
+            padding: 8px 4px;
+            border-right: 1px solid #000;
+            font-size: 13px;
+            vertical-align: top;
+        }
+        .items-table th:last-child, .items-table td:last-child {
+            border-right: none;
+        }
+        .text-center { text-align: center; }
+        .text-right { text-align: right; }
 
-        .total-section {
+        /* Calculation Section */
+        .totals-section {
             width: 100%;
             border-collapse: collapse;
-        }
-        .total-section td {
             border: 1px solid #000;
-            padding: 8px;
-            font-weight: bold;
         }
-
-        .amount-words {
+        .totals-section td {
+            padding: 5px 10px;
+            font-size: 14px;
             border: 1px solid #000;
-            border-top: none;
+        }
+        .amount-in-words {
+            border-left: 1px solid #000;
+            border-right: 1px solid #000;
+            border-bottom: 1px solid #000;
             padding: 10px;
             font-size: 14px;
         }
 
+        /* Footer / Signatures */
         .footer {
-            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding-top: 20px;
+            border-left: 1px solid #000;
+            border-right: 1px solid #000;
+            border-bottom: 1px solid #000;
+            padding: 15px;
         }
-        .footer-table {
-            width: 100%;
-            border-collapse: collapse;
+        .terms {
+            font-size: 11px;
+            width: 60%;
         }
-        .footer-table td {
-            width: 50%;
-            vertical-align: bottom;
-            padding-bottom: 10px;
+        .signature-box {
+            text-align: center;
+            width: 35%;
         }
-        .bank-details {
-            font-size: 12px;
-            line-height: 1.5;
-        }
-        .signature-area {
-            text-align: right;
+        .signature-box p {
+            margin: 0;
+            font-weight: bold;
         }
         .sig-space {
-            margin-top: 60px;
-            font-weight: bold;
-            text-decoration: overline;
+            height: 60px;
         }
 
-        /* Print styles */
+        /* Professional Look for the Table lines */
+        .fill-space {
+            height: auto; /* Adjusts dynamically */
+        }
+
         @media print {
-            body { background: white; }
-            .invoice-box {
+            body { background: none; }
+            .page-container {
                 margin: 0;
-                border: none;
-                box-shadow: none;
+                border: 1px solid #000;
             }
         }
     </style>
 </head>
 <body>
 
-<div class="invoice-box">
+<div class="page-container">
     <!-- Header -->
     <div class="header">
-        <h1>TAX / RETAIL INVOICE</h1>
+        <h1>TAX INVOICE</h1>
         <h2>BEHERA GRAPHICS</h2>
-        <p>Office: FF-26, Indradhanu Market, Nayapalli, Bhubaneswar - 751015</p>
-        <p>Email: beheragraphics@gmail.com | Phone: 9861669665</p>
+        <p>FF-26, Indradhanu Market, Nayapalli, Bhubaneswar - 751015</p>
+        <p>Email: beheragraphics@gmail.com | Mobile: 9861669665, 9437286665</p>
         <p><strong>GSTIN: 21APUPB9655D1ZU</strong></p>
     </div>
 
-    <!-- Buyer & Invoice Info -->
-    <table class="details-section">
+    <!-- Buyer & Serial Info -->
+    <table class="info-table">
         <tr>
             <td>
-                <strong>Buyer:</strong><br>
-                <strong>THE PROJECT DIRECTOR, OSACS</strong><br>
+                <strong>Details of Receiver (Buyer):</strong><br>
+                <span style="font-size: 16px; font-weight: bold;">THE PROJECT DIRECTOR, OSACS</span><br>
                 Nayapalli, Bhubaneswar, Odisha
             </td>
             <td>
                 <strong>Invoice No:</strong> 476<br>
                 <strong>Date:</strong> 24/06/2025<br>
-                <strong>Place of Supply:</strong> Odisha (21)
+                <strong>State Code:</strong> 21 (Odisha)
             </td>
         </tr>
     </table>
 
-    <!-- Items Table -->
-    <table class="items-table">
-        <thead>
-            <tr>
-                <th>Sl.</th>
-                <th style="width: 30%;">Description</th>
-                <th>HSN</th>
-                <th>Qty</th>
-                <th>Sqft</th>
-                <th>Rate</th>
-                <th>Amount</th>
-                <th>GST%</th>
-                <th>CGST</th>
-                <th>SGST</th>
-                <th>Total</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Line Item 1 -->
-            <tr>
-                <td class="text-center">1</td>
-                <td>Flex Print - 8x10</td>
-                <td class="text-center">4911</td>
-                <td class="text-center">1</td>
-                <td class="text-center">80</td>
-                <td class="text-right">32.00</td>
-                <td class="text-right">2560.00</td>
-                <td class="text-center">18%</td>
-                <td class="text-right">230.40</td>
-                <td class="text-right">230.40</td>
-                <td class="text-right">3020.80</td>
-            </tr>
-            <!-- Empty rows to fill space if needed -->
-            <tr><td style="height: 300px;"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        </tbody>
-    </table>
+    <!-- Main Items Table -->
+    <div class="main-table-container">
+        <table class="items-table">
+            <thead>
+                <tr>
+                    <th>Sl.</th>
+                    <th style="width: 35%;">Description of Goods</th>
+                    <th>HSN</th>
+                    <th>Qty</th>
+                    <th>Sqft</th>
+                    <th>Rate</th>
+                    <th>Amount</th>
+                    <th>GST%</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Item 1 -->
+                <tr>
+                    <td class="text-center">1</td>
+                    <td><b>Flex Print - 8x10</b></td>
+                    <td class="text-center">4911</td>
+                    <td class="text-center">1</td>
+                    <td class="text-center">80</td>
+                    <td class="text-right">32.00</td>
+                    <td class="text-right">2560.00</td>
+                    <td class="text-center">18%</td>
+                    <td class="text-right">3020.80</td>
+                </tr>
+                <!-- Empty rows to push content if needed -->
+                <tr class="fill-space">
+                    <td style="height: 450px;"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-    <!-- Totals -->
-    <table class="total-section">
+    <!-- Totals Table -->
+    <table class="totals-section">
         <tr>
-            <td rowspan="4" style="width: 60%; font-weight: normal; vertical-align: top;">
-                <strong>Terms & Conditions:</strong>
-                <ul style="padding-left: 20px; font-size: 12px;">
-                    <li>Goods once sold will not be taken back.</li>
-                    <li>Interest @18% will be charged if payment is not made within 15 days.</li>
-                    <li>Subject to Bhubaneswar Jurisdiction.</li>
-                </ul>
-            </td>
-            <td class="text-right">Sub Total</td>
-            <td class="text-right" style="width: 120px;">2560.00</td>
+            <td style="width: 70%;" class="text-right">Taxable Value</td>
+            <td class="text-right">2560.00</td>
         </tr>
         <tr>
             <td class="text-right">CGST @ 9%</td>
@@ -224,8 +245,8 @@
             <td class="text-right">230.40</td>
         </tr>
         <tr>
-            <td class="text-right" style="font-size: 18px;">GRAND TOTAL</td>
-            <td class="text-right" style="font-size: 18px;">₹ 3020.80</td>
+            <td class="text-right"><strong>Grand Total (Inclusive of GST)</strong></td>
+            <td class="text-right"><strong>₹ 3020.80</strong></td>
         </tr>
     </table>
 
@@ -235,25 +256,25 @@
 
     <!-- Footer -->
     <div class="footer">
-        <table class="footer-table">
-            <tr>
-                <td>
-                    <div class="bank-details">
-                        <strong>Bank Details:</strong><br>
-                        Bank Name: [Your Bank Name]<br>
-                        A/c No: [Your Account Number]<br>
-                        IFSC: [Your IFSC Code]<br>
-                        Branch: Bhubaneswar
-                    </div>
-                </td>
-                <td class="signature-area">
-                    <p>For <strong>Behera Graphics</strong></p>
-                    <div class="sig-space">
-                        Authorised Signature
-                    </div>
-                </td>
-            </tr>
-        </table>
+        <div class="terms">
+            <strong>Terms & Conditions:</strong>
+            <ol style="margin: 5px 0; padding-left: 15px;">
+                <li>Goods once sold will not be taken back or exchanged.</li>
+                <li>Interest @18% p.a. will be charged if not paid within due date.</li>
+                <li>All disputes are subject to Bhubaneswar jurisdiction only.</li>
+            </ol>
+            <div style="margin-top: 10px;">
+                <strong>Bank Details:</strong><br>
+                A/c Holder: BEHERA GRAPHICS<br>
+                Bank: [Bank Name] | A/c No: [00000000000]<br>
+                IFSC: [IFSC0000]
+            </div>
+        </div>
+        <div class="signature-box">
+            <p>For BEHERA GRAPHICS</p>
+            <div class="sig-space"></div>
+            <p>Authorised Signatory</p>
+        </div>
     </div>
 </div>
 
