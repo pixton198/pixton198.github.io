@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tax Invoice - BEHERA GRAPHICS</title>
     <style>
-        /* CSS Reset and A4 Setup */
+        /* A4 Paper Configuration */
         * {
             box-sizing: border-box;
             -webkit-print-color-adjust: exact;
@@ -16,193 +16,214 @@
             margin: 0;
         }
 
-        html, body {
-            height: 297mm;
-            width: 210mm;
+        body {
             margin: 0;
             padding: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            background-color: #fff;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #ffffff;
         }
 
-        /* The Main Wrapper that spans the full height */
-        .invoice-container {
+        /* Full Height Container */
+        .invoice-wrapper {
             width: 210mm;
             height: 297mm;
-            padding: 10mm; /* Standard margin for printers */
+            margin: auto;
+            border: 2px solid #000;
             display: flex;
             flex-direction: column;
-            border: 1px solid #000; /* Subtle outer border */
-            margin: auto;
+            padding: 0;
+            position: relative;
         }
 
         /* Header Section */
-        header {
+        .header {
             text-align: center;
+            padding: 20px;
             border-bottom: 2px solid #000;
-            padding-bottom: 10px;
         }
-        header h1 {
+        .header h1 {
             margin: 0;
-            font-size: 20px;
+            font-size: 22px;
             text-decoration: underline;
+            letter-spacing: 2px;
         }
-        header h2 {
-            margin: 5px 0;
-            font-size: 32px;
-            color: #000;
+        .header h2 {
+            margin: 10px 0 5px 0;
+            font-size: 36px;
             font-weight: 900;
+            color: #000;
         }
-        header p {
+        .header p {
             margin: 2px 0;
             font-size: 14px;
         }
 
-        /* Buyer and Invoice Details */
-        .details-bar {
+        /* Buyer/Invoice Info Section */
+        .details-section {
             display: flex;
-            border: 1px solid #000;
-            border-top: none;
+            width: 100%;
+            border-bottom: 2px solid #000;
         }
-        .details-bar .box {
+        .details-box {
             flex: 1;
-            padding: 10px;
-            border-right: 1px solid #000;
+            padding: 15px;
+            border-right: 2px solid #000;
             font-size: 14px;
+            line-height: 1.6;
         }
-        .details-bar .box:last-child {
+        .details-box:last-child {
             border-right: none;
         }
 
-        /* Table Section - The "Elastic" part */
-        .items-wrapper {
-            flex-grow: 1; /* This pushes everything else down */
-            border-left: 1px solid #000;
-            border-right: 1px solid #000;
-            border-bottom: 1px solid #000;
+        /* The Main Grid (Table) - Fills remaining space */
+        .grid-container {
+            flex-grow: 1; /* This expands the table to fill the page */
+            display: flex;
+            flex-direction: column;
         }
-        table.items-table {
+        
+        table {
             width: 100%;
             border-collapse: collapse;
         }
-        table.items-table th {
-            border-bottom: 1px solid #000;
+
+        th {
+            background-color: #e0e0e0;
+            border-bottom: 2px solid #000;
             border-right: 1px solid #000;
             padding: 10px 5px;
-            background-color: #f2f2f2;
             font-size: 12px;
             text-transform: uppercase;
         }
-        table.items-table td {
+
+        td {
             border-right: 1px solid #000;
-            padding: 8px 5px;
-            font-size: 14px;
+            padding: 8px 10px;
+            font-size: 15px;
             vertical-align: top;
         }
-        table.items-table th:last-child, table.items-table td:last-child {
+
+        th:last-child, td:last-child {
             border-right: none;
         }
 
-        /* Totals Section */
-        .summary-wrapper {
+        /* Filler Row - Forces the grid lines to the bottom */
+        .filler-row {
+            flex-grow: 1;
             display: flex;
-            border-left: 1px solid #000;
-            border-right: 1px solid #000;
-            border-bottom: 1px solid #000;
+            border-bottom: 2px solid #000;
         }
-        .amount-words {
+        .filler-col {
+            border-right: 1px solid #000;
+            height: 100%;
+        }
+        .filler-col:last-child {
+            border-right: none;
+        }
+
+        /* Totals & Calculations Section */
+        .summary-section {
+            display: flex;
+            border-bottom: 2px solid #000;
+        }
+        .amount-in-words {
             flex: 1.5;
-            padding: 10px;
-            font-size: 13px;
-            border-right: 1px solid #000;
+            padding: 15px;
+            font-size: 14px;
+            border-right: 2px solid #000;
         }
-        .calc-box {
+        .calculations {
             flex: 1;
         }
         .calc-row {
             display: flex;
             justify-content: space-between;
-            padding: 5px 10px;
-            border-bottom: 1px solid #eee;
+            padding: 8px 15px;
+            border-bottom: 1px solid #ccc;
             font-size: 14px;
         }
         .calc-row.grand-total {
-            border-top: 1px solid #000;
-            background-color: #f2f2f2;
+            background-color: #e0e0e0;
             font-weight: bold;
-            font-size: 16px;
+            font-size: 18px;
+            border-bottom: none;
         }
 
-        /* Footer and Signature */
-        footer {
+        /* Footer Section */
+        .footer {
             padding: 15px;
-            border: 1px solid #000;
-            border-top: none;
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
+            background-color: #fff;
         }
         .terms {
-            font-size: 11px;
+            font-size: 12px;
             width: 60%;
         }
-        .signature-area {
+        .signature-box {
             text-align: center;
-        }
-        .signature-area p {
-            margin: 0;
-            font-size: 14px;
-            font-weight: bold;
+            width: 35%;
         }
         .sig-space {
-            height: 70px;
+            height: 80px;
+        }
+        .signature-box p {
+            margin: 0;
+            font-weight: bold;
+            border-top: 1px solid #000;
+            padding-top: 5px;
+            display: inline-block;
+            width: 100%;
         }
 
-        /* Alignment Utilities */
-        .text-right { text-align: right; }
+        /* Helpers */
         .text-center { text-align: center; }
+        .text-right { text-align: right; }
         .bold { font-weight: bold; }
 
     </style>
 </head>
 <body>
 
-<div class="invoice-container">
-    <!-- 1. Header -->
-    <header>
-        <h1>TAX INVOICE</h1>
+<div class="invoice-wrapper">
+    <!-- Header -->
+    <div class="header">
+        <h1>TAX / RETAIL INVOICE</h1>
         <h2>BEHERA GRAPHICS</h2>
         <p>FF-26, Indradhanu Market, Nayapalli, Bhubaneswar - 751015</p>
         <p>Email: beheragraphics@gmail.com | <strong>Phone: 9861669665, 9437286665</strong></p>
         <p><strong>GSTIN: 21APUPB9655D1ZU</strong></p>
-    </header>
+    </div>
 
-    <!-- 2. Details Bar -->
-    <div class="details-bar">
-        <div class="box">
-            <strong>BILL TO:</strong><br>
-            <span style="font-size: 16px; font-weight: bold;">THE PROJECT DIRECTOR, OSACS</span><br>
-            Nayapalli, Bhubaneswar, Odisha
+    <!-- Buyer & Invoice Details -->
+    <div class="details-section">
+        <div class="details-box">
+            <strong style="text-decoration: underline;">Details of Receiver (Buyer):</strong><br>
+            <span style="font-size: 18px; font-weight: bold;">THE PROJECT DIRECTOR, OSACS</span><br>
+            Nayapalli, Bhubaneswar, Odisha<br>
+            State Code: 21 (Odisha)
         </div>
-        <div class="box" style="max-width: 250px;">
-            <strong>Invoice No:</strong> 476<br>
-            <strong>Date:</strong> 24/06/2025<br>
-            <strong>Place of Supply:</strong> Odisha (21)
+        <div class="details-box" style="max-width: 300px;">
+            <strong>Invoice No:</strong> <span class="bold">476</span><br>
+            <strong>Date:</strong> <span class="bold">24/06/2025</span><br>
+            <strong>Transport:</strong> Hand Delivery<br>
+            <strong>Place of Supply:</strong> Bhubaneswar
         </div>
     </div>
 
-    <!-- 3. Items Table (Expands to fill page) -->
-    <div class="items-wrapper">
-        <table class="items-table">
+    <!-- Main Table Grid -->
+    <div class="grid-container">
+        <table>
             <thead>
                 <tr>
-                    <th style="width: 40px;">Sl.</th>
+                    <th style="width: 50px;">Sl.</th>
                     <th>Description of Goods / Services</th>
-                    <th style="width: 60px;">HSN</th>
-                    <th style="width: 40px;">Qty</th>
-                    <th style="width: 50px;">Sqft</th>
-                    <th style="width: 80px;">Rate</th>
-                    <th style="width: 100px;">Amount</th>
+                    <th style="width: 80px;">HSN</th>
+                    <th style="width: 60px;">Qty</th>
+                    <th style="width: 70px;">Sqft</th>
+                    <th style="width: 100px;">Rate</th>
+                    <th style="width: 120px;">Amount</th>
                 </tr>
             </thead>
             <tbody>
@@ -216,69 +237,70 @@
                     <td class="text-right">32.00</td>
                     <td class="text-right">2560.00</td>
                 </tr>
-                <!-- This is a spacer row to keep vertical lines going to the bottom -->
-                <tr>
-                    <td style="height: 550px;"></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
+                <!-- You can add more rows here -->
             </tbody>
         </table>
+        
+        <!-- This Filler Row creates the long vertical grid lines -->
+        <div class="filler-row">
+            <div class="filler-col" style="width: 50px;"></div>
+            <div class="filler-col" style="flex-grow: 1;"></div>
+            <div class="filler-col" style="width: 80px;"></div>
+            <div class="filler-col" style="width: 60px;"></div>
+            <div class="filler-col" style="width: 70px;"></div>
+            <div class="filler-col" style="width: 100px;"></div>
+            <div class="filler-col" style="width: 120px;"></div>
+        </div>
     </div>
 
-    <!-- 4. Totals and Summary -->
-    <div class="summary-wrapper">
-        <div class="amount-words">
+    <!-- Summary & Totals -->
+    <div class="summary-section">
+        <div class="amount-in-words">
             <strong>Amount in Words:</strong><br>
-            Rupees Three Thousand Twenty and Paisa Eighty Only.
-            <div style="margin-top: 20px;">
-                <strong>Bank Details:</strong><br>
-                A/c Name: BEHERA GRAPHICS<br>
-                A/c No: 0000000000000 (Sample)<br>
-                IFSC: BANK0000123
+            <span class="bold" style="text-transform: capitalize;">Rupees Three Thousand Twenty and Paisa Eighty Only.</span>
+            
+            <div style="margin-top: 30px; font-size: 12px; border: 1px dashed #000; padding: 10px;">
+                <strong>BANK DETAILS:</strong><br>
+                A/c Name: BEHERA GRAPHICS | Bank: [BANK NAME]<br>
+                A/c No: 0000000000000 | IFSC: BANK0001234
             </div>
         </div>
-        <div class="calc-box">
+        <div class="calculations">
             <div class="calc-row">
                 <span>Taxable Value:</span>
-                <span>2560.00</span>
+                <span class="bold">2560.00</span>
             </div>
             <div class="calc-row">
                 <span>CGST @ 9%:</span>
-                <span>230.40</span>
+                <span class="bold">230.40</span>
             </div>
             <div class="calc-row">
                 <span>SGST @ 9%:</span>
-                <span>230.40</span>
+                <span class="bold">230.40</span>
             </div>
             <div class="calc-row grand-total">
-                <span>GRAND TOTAL:</span>
+                <span>TOTAL AMOUNT:</span>
                 <span>₹ 3020.80</span>
             </div>
         </div>
     </div>
 
-    <!-- 5. Footer -->
-    <footer>
+    <!-- Footer -->
+    <div class="footer">
         <div class="terms">
             <strong>Terms & Conditions:</strong>
-            <ol style="margin: 5px 0; padding-left: 15px;">
+            <ul style="margin: 5px 0; padding-left: 18px;">
                 <li>Goods once sold will not be taken back.</li>
-                <li>Interest @18% will be charged if payment is not made on time.</li>
+                <li>Interest @18% p.a. will be charged if not paid within due date.</li>
                 <li>All disputes are subject to Bhubaneswar Jurisdiction only.</li>
-            </ol>
-            <p style="margin-top: 5px;">E. & O.E.</p>
+            </ul>
         </div>
-        <div class="signature-area">
-            <p>For BEHERA GRAPHICS</p>
+        <div class="signature-box">
+            <span style="font-size: 14px;">For <strong>BEHERA GRAPHICS</strong></span>
             <div class="sig-space"></div>
             <p>Authorised Signatory</p>
         </div>
-    </footer>
+    </div>
 </div>
 
 </body>
