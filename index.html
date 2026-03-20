@@ -5,277 +5,280 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tax Invoice - BEHERA GRAPHICS</title>
     <style>
-        /* A4 Page Setup */
-        @page {
-            size: A4;
-            margin: 0;
-        }
+        /* CSS Reset and A4 Setup */
         * {
             box-sizing: border-box;
             -webkit-print-color-adjust: exact;
         }
-        body {
-            font-family: 'Arial', sans-serif;
+        
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        html, body {
+            height: 297mm;
+            width: 210mm;
             margin: 0;
             padding: 0;
-            background-color: #f0f0f0;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #fff;
         }
 
-        /* The Main Container - Full A4 */
-        .page-container {
+        /* The Main Wrapper that spans the full height */
+        .invoice-container {
             width: 210mm;
             height: 297mm;
-            margin: auto;
-            background: white;
-            padding: 12mm;
+            padding: 10mm; /* Standard margin for printers */
             display: flex;
             flex-direction: column;
-            border: 1px solid #000; /* Outer border of the page */
+            border: 1px solid #000; /* Subtle outer border */
+            margin: auto;
         }
 
-        /* Header Styles */
-        .header {
+        /* Header Section */
+        header {
             text-align: center;
             border-bottom: 2px solid #000;
             padding-bottom: 10px;
-            margin-bottom: 0;
         }
-        .header h1 {
+        header h1 {
             margin: 0;
-            font-size: 18px;
+            font-size: 20px;
             text-decoration: underline;
         }
-        .header h2 {
+        header h2 {
             margin: 5px 0;
-            font-size: 28px;
+            font-size: 32px;
             color: #000;
-            font-weight: bold;
+            font-weight: 900;
         }
-        .header p {
+        header p {
             margin: 2px 0;
-            font-size: 13px;
+            font-size: 14px;
         }
 
-        /* Info Section */
-        .info-table {
-            width: 100%;
-            border-collapse: collapse;
-            border-left: 1px solid #000;
-            border-right: 1px solid #000;
-            border-bottom: 1px solid #000;
+        /* Buyer and Invoice Details */
+        .details-bar {
+            display: flex;
+            border: 1px solid #000;
+            border-top: none;
         }
-        .info-table td {
-            width: 50%;
+        .details-bar .box {
+            flex: 1;
             padding: 10px;
-            vertical-align: top;
-            font-size: 14px;
             border-right: 1px solid #000;
+            font-size: 14px;
         }
-        .info-table td:last-child {
+        .details-bar .box:last-child {
             border-right: none;
         }
 
-        /* Table Section - This grows to fill space */
-        .main-table-container {
-            flex-grow: 1; /* Pushes everything below to the bottom */
+        /* Table Section - The "Elastic" part */
+        .items-wrapper {
+            flex-grow: 1; /* This pushes everything else down */
             border-left: 1px solid #000;
             border-right: 1px solid #000;
+            border-bottom: 1px solid #000;
         }
-        .items-table {
+        table.items-table {
             width: 100%;
             border-collapse: collapse;
         }
-        .items-table th {
-            background-color: #f2f2f2;
+        table.items-table th {
             border-bottom: 1px solid #000;
             border-right: 1px solid #000;
-            padding: 8px 4px;
-            font-size: 11px;
+            padding: 10px 5px;
+            background-color: #f2f2f2;
+            font-size: 12px;
             text-transform: uppercase;
         }
-        .items-table td {
-            padding: 8px 4px;
+        table.items-table td {
             border-right: 1px solid #000;
-            font-size: 13px;
+            padding: 8px 5px;
+            font-size: 14px;
             vertical-align: top;
         }
-        .items-table th:last-child, .items-table td:last-child {
+        table.items-table th:last-child, table.items-table td:last-child {
             border-right: none;
         }
-        .text-center { text-align: center; }
-        .text-right { text-align: right; }
 
-        /* Calculation Section */
-        .totals-section {
-            width: 100%;
-            border-collapse: collapse;
-            border: 1px solid #000;
-        }
-        .totals-section td {
-            padding: 5px 10px;
-            font-size: 14px;
-            border: 1px solid #000;
-        }
-        .amount-in-words {
+        /* Totals Section */
+        .summary-wrapper {
+            display: flex;
             border-left: 1px solid #000;
             border-right: 1px solid #000;
             border-bottom: 1px solid #000;
+        }
+        .amount-words {
+            flex: 1.5;
             padding: 10px;
+            font-size: 13px;
+            border-right: 1px solid #000;
+        }
+        .calc-box {
+            flex: 1;
+        }
+        .calc-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 10px;
+            border-bottom: 1px solid #eee;
             font-size: 14px;
         }
+        .calc-row.grand-total {
+            border-top: 1px solid #000;
+            background-color: #f2f2f2;
+            font-weight: bold;
+            font-size: 16px;
+        }
 
-        /* Footer / Signatures */
-        .footer {
+        /* Footer and Signature */
+        footer {
+            padding: 15px;
+            border: 1px solid #000;
+            border-top: none;
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
-            padding-top: 20px;
-            border-left: 1px solid #000;
-            border-right: 1px solid #000;
-            border-bottom: 1px solid #000;
-            padding: 15px;
         }
         .terms {
             font-size: 11px;
             width: 60%;
         }
-        .signature-box {
+        .signature-area {
             text-align: center;
-            width: 35%;
         }
-        .signature-box p {
+        .signature-area p {
             margin: 0;
+            font-size: 14px;
             font-weight: bold;
         }
         .sig-space {
-            height: 60px;
+            height: 70px;
         }
 
-        /* Professional Look for the Table lines */
-        .fill-space {
-            height: auto; /* Adjusts dynamically */
-        }
+        /* Alignment Utilities */
+        .text-right { text-align: right; }
+        .text-center { text-align: center; }
+        .bold { font-weight: bold; }
 
-        @media print {
-            body { background: none; }
-            .page-container {
-                margin: 0;
-                border: 1px solid #000;
-            }
-        }
     </style>
 </head>
 <body>
 
-<div class="page-container">
-    <!-- Header -->
-    <div class="header">
+<div class="invoice-container">
+    <!-- 1. Header -->
+    <header>
         <h1>TAX INVOICE</h1>
         <h2>BEHERA GRAPHICS</h2>
         <p>FF-26, Indradhanu Market, Nayapalli, Bhubaneswar - 751015</p>
-        <p>Email: beheragraphics@gmail.com | Mobile: 9861669665, 9437286665</p>
+        <p>Email: beheragraphics@gmail.com | <strong>Phone: 9861669665, 9437286665</strong></p>
         <p><strong>GSTIN: 21APUPB9655D1ZU</strong></p>
+    </header>
+
+    <!-- 2. Details Bar -->
+    <div class="details-bar">
+        <div class="box">
+            <strong>BILL TO:</strong><br>
+            <span style="font-size: 16px; font-weight: bold;">THE PROJECT DIRECTOR, OSACS</span><br>
+            Nayapalli, Bhubaneswar, Odisha
+        </div>
+        <div class="box" style="max-width: 250px;">
+            <strong>Invoice No:</strong> 476<br>
+            <strong>Date:</strong> 24/06/2025<br>
+            <strong>Place of Supply:</strong> Odisha (21)
+        </div>
     </div>
 
-    <!-- Buyer & Serial Info -->
-    <table class="info-table">
-        <tr>
-            <td>
-                <strong>Details of Receiver (Buyer):</strong><br>
-                <span style="font-size: 16px; font-weight: bold;">THE PROJECT DIRECTOR, OSACS</span><br>
-                Nayapalli, Bhubaneswar, Odisha
-            </td>
-            <td>
-                <strong>Invoice No:</strong> 476<br>
-                <strong>Date:</strong> 24/06/2025<br>
-                <strong>State Code:</strong> 21 (Odisha)
-            </td>
-        </tr>
-    </table>
-
-    <!-- Main Items Table -->
-    <div class="main-table-container">
+    <!-- 3. Items Table (Expands to fill page) -->
+    <div class="items-wrapper">
         <table class="items-table">
             <thead>
                 <tr>
-                    <th>Sl.</th>
-                    <th style="width: 35%;">Description of Goods</th>
-                    <th>HSN</th>
-                    <th>Qty</th>
-                    <th>Sqft</th>
-                    <th>Rate</th>
-                    <th>Amount</th>
-                    <th>GST%</th>
-                    <th>Total</th>
+                    <th style="width: 40px;">Sl.</th>
+                    <th>Description of Goods / Services</th>
+                    <th style="width: 60px;">HSN</th>
+                    <th style="width: 40px;">Qty</th>
+                    <th style="width: 50px;">Sqft</th>
+                    <th style="width: 80px;">Rate</th>
+                    <th style="width: 100px;">Amount</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- Item 1 -->
+                <!-- Item row -->
                 <tr>
                     <td class="text-center">1</td>
-                    <td><b>Flex Print - 8x10</b></td>
+                    <td class="bold">Flex Print - Size 8x10</td>
                     <td class="text-center">4911</td>
                     <td class="text-center">1</td>
                     <td class="text-center">80</td>
                     <td class="text-right">32.00</td>
                     <td class="text-right">2560.00</td>
-                    <td class="text-center">18%</td>
-                    <td class="text-right">3020.80</td>
                 </tr>
-                <!-- Empty rows to push content if needed -->
-                <tr class="fill-space">
-                    <td style="height: 450px;"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <!-- This is a spacer row to keep vertical lines going to the bottom -->
+                <tr>
+                    <td style="height: 550px;"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                 </tr>
             </tbody>
         </table>
     </div>
 
-    <!-- Totals Table -->
-    <table class="totals-section">
-        <tr>
-            <td style="width: 70%;" class="text-right">Taxable Value</td>
-            <td class="text-right">2560.00</td>
-        </tr>
-        <tr>
-            <td class="text-right">CGST @ 9%</td>
-            <td class="text-right">230.40</td>
-        </tr>
-        <tr>
-            <td class="text-right">SGST @ 9%</td>
-            <td class="text-right">230.40</td>
-        </tr>
-        <tr>
-            <td class="text-right"><strong>Grand Total (Inclusive of GST)</strong></td>
-            <td class="text-right"><strong>₹ 3020.80</strong></td>
-        </tr>
-    </table>
-
-    <div class="amount-words">
-        <strong>Amount in Words:</strong> Rupees Three Thousand Twenty and Paisa Eighty Only.
+    <!-- 4. Totals and Summary -->
+    <div class="summary-wrapper">
+        <div class="amount-words">
+            <strong>Amount in Words:</strong><br>
+            Rupees Three Thousand Twenty and Paisa Eighty Only.
+            <div style="margin-top: 20px;">
+                <strong>Bank Details:</strong><br>
+                A/c Name: BEHERA GRAPHICS<br>
+                A/c No: 0000000000000 (Sample)<br>
+                IFSC: BANK0000123
+            </div>
+        </div>
+        <div class="calc-box">
+            <div class="calc-row">
+                <span>Taxable Value:</span>
+                <span>2560.00</span>
+            </div>
+            <div class="calc-row">
+                <span>CGST @ 9%:</span>
+                <span>230.40</span>
+            </div>
+            <div class="calc-row">
+                <span>SGST @ 9%:</span>
+                <span>230.40</span>
+            </div>
+            <div class="calc-row grand-total">
+                <span>GRAND TOTAL:</span>
+                <span>₹ 3020.80</span>
+            </div>
+        </div>
     </div>
 
-    <!-- Footer -->
-    <div class="footer">
+    <!-- 5. Footer -->
+    <footer>
         <div class="terms">
             <strong>Terms & Conditions:</strong>
             <ol style="margin: 5px 0; padding-left: 15px;">
-                <li>Goods once sold will not be taken back or exchanged.</li>
-                <li>Interest @18% p.a. will be charged if not paid within due date.</li>
-                <li>All disputes are subject to Bhubaneswar jurisdiction only.</li>
+                <li>Goods once sold will not be taken back.</li>
+                <li>Interest @18% will be charged if payment is not made on time.</li>
+                <li>All disputes are subject to Bhubaneswar Jurisdiction only.</li>
             </ol>
-            <div style="margin-top: 10px;">
-                <strong>Bank Details:</strong><br>
-                A/c Holder: BEHERA GRAPHICS<br>
-                Bank: [Bank Name] | A/c No: [00000000000]<br>
-                IFSC: [IFSC0000]
-            </div>
+            <p style="margin-top: 5px;">E. & O.E.</p>
         </div>
-        <div class="signature-box">
+        <div class="signature-area">
             <p>For BEHERA GRAPHICS</p>
             <div class="sig-space"></div>
             <p>Authorised Signatory</p>
         </div>
-    </div>
+    </footer>
 </div>
 
 </body>
